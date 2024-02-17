@@ -1,0 +1,252 @@
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+.select_option {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #555;
+}
+
+.search_blog {
+    padding: 10px;
+    margin-bottom: 25px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #555;
+    width: 90%;
+}
+
+.error-message {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.error-message-display{
+  font-weight: bold;
+  color: red;
+  font-size: 30px;
+  border: 1px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.close-button {
+  margin-top: -15px;
+  color: black;
+  cursor: pointer;
+  color: blue;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+ul {
+  margin: 0;
+}
+
+.bg-steel {
+  background-color: #5f788a;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+/* Following section is for Testbed Homepage */
+/*Testbed Homepage START*/
+
+.location-title {
+  color: dodgerblue;
+  font-size: 25px;
+}
+
+.add-testbed .location-title {
+  color: dodgerblue;
+  font-size: 25px;
+}
+
+.add-testbed {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-left: 150px;
+}
+
+/*Testbed Homepage END*/
+
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+  overflow: scroll;
+  height: 250px;
+  width: 600px;
+}
+
+.article-content-detail {
+  overflow: scroll; 
+  white-space: pre-line;
+  width: 600px;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+.limited-height-textfield {
+    max-height: 100px; /* Set the maximum height as per your requirement */
+    overflow-y: auto; /* Add scrollbar if the content overflows */
+}
+
+.testbed-content {
+  margin-top: 20px;
+  background: ghostwhite;
+  padding: 10px 20px;
+  border: 1px solid;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+
+
+
+.increased-font {
+    font-size: 25px;
+}
+
+table {
+            border-collapse: collapse;
+            width: 100%;
+            height:100%;
+            max-height: 100px; 
+            margin-bottom: 20px;
+            overflow-x: auto;
+            overflow-y: scroll; 
+        }
+
+td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            height:100%;
+            max-height: 100px; /* Set a maximum height for the cell */
+            overflow-y: scroll;
+        }
+
+
+.hidden-data {
+            display: none;
+            border: 1px solid;
+            padding: 5px;
+            background: whitesmoke;
+            height:100%;
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+
+.article-title-testbed {
+  color: green;
+  margin-bottom: 20px;
+
+}
+
+colorButton {
+    background-color: blue;
+    color: white;
+}
+
+#colorButton.selected {
+    background-color: green;
+}
+
+
+alert-link{color:#062c33}.alert-error{
+  font-size: 20px;
+  color:black;
+  background-color:red;
+  border-color:#ffeeba;
+}.alert-error 
+hr{
+  border-top-color:#ffe8a1
+}.alert-error
+
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

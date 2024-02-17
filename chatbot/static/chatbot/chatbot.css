@@ -1,0 +1,86 @@
+#chatbot{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  margin-top: 50px;
+  border-radius: 10px;
+  border: 1px solid green;
+  padding: 10px;
+  color: black;
+  background-color: cyan;
+}
+
+#userbot{
+  margin-left: auto;
+  margin-right: 0;
+  width: 50%;
+  margin-top: 50px;
+  border-radius: 10px;
+  border: 1px solid green;
+  padding: 10px;
+  background-color: lightseagreen;
+}
+
+.botText{
+/*  font-family: monospace;*/
+  font-size: 14px;
+  text-align: left;
+  line-height: 25px;
+  color: grey;
+}
+
+#userInput{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+	width: 70%;
+	text-align: center;
+}
+
+#textInput{
+	border: 3px solid white;
+	border-bottom: 3px solid grey;
+	font-family: monospace;
+	font-size: 14px;
+	width: 60%;
+	padding: 16px;
+	color: red;
+}
+
+#buttonInput{
+	padding: 5px;
+/*	font-family: monospace;*/
+	font-size: 14px;
+	border: 3px sold;
+	background-color: green;
+	color: white;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+#buttonInput:hover {
+    background-color: lightskyblue; 
+    color: black;
+}
+
+#buttonInput:focus {
+	background: lightskyblue;
+	color: black;
+}
+
+h1{
+	text-align: center;
+	color:	teal;
+	margin-top: 10px;
+}
+
+.userText{
+	text-align: right;
+	font-family: monospace;
+	font-size: 14px;
+	line-height: 25px;
+	color: grey;
+	  
+}
+
+

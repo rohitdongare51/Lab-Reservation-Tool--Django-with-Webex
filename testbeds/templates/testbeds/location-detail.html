@@ -1,0 +1,132 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% for field in form %}
+        {{ field.errors }}
+    {% endfor %}
+    <form method="get">
+        {{ form.as_p }}
+        <!-- <button type="submit", name='latest' class="btn btn-outline-secondary">Latest</button>
+        <button type="submit", name='oldest' class="btn btn-outline-secondary">Oldest</button> -->
+        <label for="date_dropdown"></label>
+        <select class="select select_option" id="date" name="date">
+            <option value="" disabled selected>Date:- {{ selected_date }}</option>
+            <option value="latest">Latest</option>
+            <option value="oldest">Oldest</option>
+        </select>
+
+        <label for="usage_dropdown"></label>
+        <select class="select select_option"  id="usage" name="usage">
+            <option value="" disabled selected>Usage:- {{ selected_usage }}</option>
+            <option value="all">All</option>
+            <option value="not_used">Unused Devices</option>
+            <option value="used">Used Devices</option>
+        </select>
+
+        <label for="device_type_dropdown"></label>
+        <select class="select select_option"  id="device_type" name="device_type">
+            <option value="" disabled selected>Type:- {{ selected_device_type }}</option>
+            <option value="all">All</option>
+            <option value="ftd">FTD</option>
+            <option value="fmc">FMC</option>
+            <option value="router">Router</option>
+            <option value="switch">Switch</option>
+        </select>
+
+        <label for="user_dropdown"></label>
+        <select class="select select_option"  id="user" name="user">
+            <option value="" disabled selected>User:- {{ selected_user }}</option>
+            <option value="all">All</option>
+            {% for user in all_users %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+        <label for="search_device"></label>
+        <input class="select select_option" type="text" id="search_device" name="search_device"  placeholder="Type your search..." value={{ searched_device}}>
+        <!-- <button class="btn btn-primary btn-sm mt-1 mb-1" id="submit_button" name="submit_button" type="submit">{{ submit_button_name }}</button> -->
+        <input type="submit" name = "submitted_button" class="btn btn-primary btn-sm mt-1 mb-1" value={{ submit_button_name }}>
+
+    </form>    
+    {% for testbed in devices %}
+    	<div class="media-body">
+
+            <button onclick="toggleData('data{{ forloop.counter }}')" class="testbed-content" style="background-color: {% if testbed.usage == 'free' %}green{% else %}red{% endif %};">{{ testbed.device }} </button>
+            <div id="data{{ forloop.counter }}"  class="hidden-data" style="overflow-x:auto;">
+                <table>
+                     <form method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-info btn-sm mt-1 mb-1" type="submit" name='pk_val' value={{ testbed.id }}>Remind User</button>
+                    </form>
+                    <tr>
+                        <td>Type</td>
+                        <td>{% if testbed.device_type == 'ftd' %}FTD{% elif testbed.device_type == 'fmc'%}FMC{% elif testbed.device_type == 'router'%}Router{% else %}Switch{% endif %}</td>
+                    </tr>
+                     <tr>
+                        <td>Location</td>
+                        <td>{{ location }}</td>
+                    </tr>
+                    <tr>
+                        <td>Telnet</td>
+                        <td>{{ testbed.telnet }}</td>
+                    </tr>
+                    <tr>
+                        <td>SSH </td>
+                        <td>{{ testbed.ssh }}</td>
+                    </tr>
+                    <tr>
+                        <td>Notes</td>
+                        <td>
+                            {{ testbed.notes }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Usage</td>
+                        <td>{% if testbed.usage == 'free' %}Not In Use{% else %}In Use{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>User</td>
+                        <td>{{ testbed.testbed_uploader }}</td>
+                    </tr>
+                    <tr>
+                        <td>Added/Edited</td>
+                        <td>{{ testbed.date_posted }}</td>
+                    </tr>
+
+                </table>
+                <!-- Add more content as needed -->
+                <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'testbed-detail' testbed.id %}">Update</a>
+                {% if user.is_superuser %}
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'testbed-delete' testbed.id %}">Delete</a>
+                {% endif %}
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'location-detail' testbed.location %}">Close</a>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1&date={{ date }}&usage={{ usage }}">First</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}&date={{ date }}&usage={{ usage }}">Previous</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a class="btn btn-outline-info mb-4" href="?page={{ num }}&date={{ date }}&usage={{ usage }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}&date={{ date }}&usage={{ usage }}">Next</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}&date={{ date }}&usage={{ usage }}">Last</a>
+        {% endif %}
+    {% endif %}
+
+    <script>
+        function toggleData(id) {
+            var hiddenData = document.getElementById(id);
+            hiddenData.style.display = !hiddenData.style.display ? 'block' : '';
+        }
+    </script>
+
+{% endblock content %}

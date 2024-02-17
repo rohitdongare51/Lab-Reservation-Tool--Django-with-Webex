@@ -1,0 +1,60 @@
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'testbeds/registration.css' %}">
+        <title>Update Testbed</title>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Update Testbed</h2>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <label>Location:</label>
+                <div class="fieldWrapper">
+                    {{ form.location }}
+                </div>
+                <label>Device Type:</label>
+                <div class="fieldWrapper">
+                    {{ form.device_type }}
+                </div>
+                <label>Device Name:</label>
+                <div class="fieldWrapper">
+                    {{ form.device }}
+                </div>
+                <label>Telnet:</label>
+                <div class="fieldWrapper">
+                    {{ form.telnet }}
+                </div>
+                <label>SSH:</label>
+                <div class="fieldWrapper">
+                    {{ form.ssh }}
+                </div>
+                <label>Notes:</label>
+                <div class="fieldWrapper">
+                    {{ form.notes }}
+                </div>
+                <label>Usage:</label>
+                <div class="fieldWrapper">
+                    {{ form.usage }}
+                </div>
+                <button type="submit">Update</button>
+                <a href="{% url 'testbed-home' %}" class="btn btn-info">Cancel</a>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+{% extends "blog/base.html" %}
+{% block content %}
+	<header>
+        <h1>List of Locations</h1>
+    </header>
+    <div>
+    	{% if error_message %}
+	    	<div class="error-message">
+	            <h5 class="error-message-display">{{ error_message }}</h5>
+	            <a class="close-button" onclick="closeErrorMessage()">X</a>
+	        </div>
+	        <script>
+	            function closeErrorMessage() {
+	                document.querySelector('.error-message').style.display = 'none';
+	            }
+	        </script>
+	    {% endif %}
+		<section>
+			<h2><a href="{% url 'location-detail' 'sjc15'%}" class="location-title">San Jose Building 15</a></h2>
+				
+		</section>
+
+		<section>
+			<h2><a href="{% url 'location-detail' 'sjc16'%}" class="location-title">San Jose Building 16</a></h2>
+				
+		</section>
+
+		<section>
+			<h2><a href="{% url 'location-detail' 'ful'%}" class="location-title">Fulton</a></h2>
+		</section>
+	</div>
+		<a href="{% url 'testbed_form' %}" class="btn add-testbed">Add Testbed</a>
+	<div>
+	<div>
+		{% if user.is_superuser %}
+		    <form method="get">
+            	<button type="submit" name = "generate_excel" class="btn add-testbed" value="generate_excel">Generate Excel</button>
+				<!-- <input type="submit" name = "generate_excel" class="btn add-testbed" value="Generate Excel"> -->
+			</form> 
+        {% endif %}
+	</div>
+		
+	</div>
+
+{% endblock content %}
+
+
+
+<!-- <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2> -->
+
+<!-- <h2><a class="article-title" href="{% url 'location-detail' %}">{{ testbed }}</a></h2> -->
+<!-- <h2><a class="article-title" href="{% url 'location-testbed-detail' %}">{{ testbed }}</a></h2> -->

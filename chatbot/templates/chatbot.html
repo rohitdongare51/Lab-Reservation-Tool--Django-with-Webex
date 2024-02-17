@@ -1,0 +1,54 @@
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'chatbot/chatbot.css' %}">
+	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <title>ChatBot</title>
+</head>
+
+<body>
+<h1>Chatbot</h1>
+<div>
+	<div id="chatbot">
+		<p class="botText"><span>Hi There,</span></p>
+	</div>
+	<!-- <div id="userbot">
+		<p class="botText"><span></span></p>
+	</div> -->
+	<div id="userInput">
+		<input type="text" id="textInput" name="userMessage" placeholder="Type your message....."/>
+		<input type="submit" value="Send" id="buttonInput"/>
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	function getUserResponse(){
+		var userText = $('#textInput').val();
+		if (userText) {
+			var userHTML = "<p class='userText'>User: <span>"+userText+"</span></p>"
+			$('#textInput').val("");
+			$('#chatbot').append(userHTML)
+			$.get('/getResponse',{ userMessage:userText}).done(function(data){
+			var returnedMessage = "<p class='botText'>Chatbot: <span>"+ data +"</span></p>";
+			$('#chatbot').append(returnedMessage);
+		})
+
+		}
+		
+	}
+
+	$('#buttonInput').click(function(){
+		getUserResponse();
+	})
+</script>
+</body>
+</html>
