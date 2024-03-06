@@ -261,6 +261,7 @@ class TestbedUpdateView(View):
 			messages.success(request, f'Update Succesful!')  # Set success message
 			return redirect('location-detail', location)
 
+@method_decorator(login_required, name='dispatch')
 class TestbedDeleteView(View):
 	template_name = 'testbeds/testbed-delete.html'
 

@@ -18,7 +18,7 @@ def my_cron_job():
     current_time = datetime.datetime.now(timezone.utc)
     for device in devices:
         delta_time = current_time - device.date_posted
-        print(device, delta_time.seconds, delta_time.seconds > 3600)
-        if delta_time.seconds > 3600:
+        # print(device, delta_time.seconds, delta_time.seconds > 3600)
+        if delta_time.days >= 4:
 
             send_webex_message(True,device.testbed_uploader.username,device.device,sending_user=None)

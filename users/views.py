@@ -1,17 +1,29 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.generic import UpdateView
+from django.views import View
+from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from .constants import send_webex_message
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import Profile
+import time
 
+allowed_users = ['shponnap','rajpill', 'dpappire', 'alapham', 'anujjai2','weilia','rskumar'], 
+user_dict = {'rdongare': (0,'test_password'), 'shponnap': (0, 'test'), 'rajpill': (0, 'test'), 'dpappire': (0, 'test'), 'alapham': (0, 'test'), 'anujjai2': (0, 'test'), 'weilia': (0, 'test'), 'rskumar': (0, 'test')}
+time_dict = {'start_time': time.time()}
 def register(request):
 	if request.method == "POST":
 			form = UserRegisterForm(request.POST)
 			if form.is_valid():
-				form.save()
 				username = form.cleaned_data.get('username')
-				messages.success(request, f'Account Created!')
-				return redirect('login')
+				if username in allowed_users:
+					form.save()
+					messages.success(request, f'Account Created!')
+					return redirect('login')
+				else:
+					messages.error(request,f'{username} is not a valid Username! Please use your cec username')
 	else:
 		form = UserRegisterForm()
 	return render(request, 'users/register.html', {'form': form})
@@ -25,10 +37,15 @@ def profile(request):
 									request.FILES,
 									instance=request.user.profile)
 		if u_form.is_valid() and p_form.is_valid():
-			u_form.save()
-			p_form.save()
-			messages.success(request, f'Your account has been updated!')
-			return redirect('profile')
+			username = u_form.cleaned_data.get('username')
+			if username in allowed_users:
+				u_form.save()
+				p_form.save()
+				messages.success(request, f'Your account has been updated!')
+				return redirect('profile')
+			else:
+				messages.error(request, f'{username} is not a valid Username! Please use your cec username')
+				return redirect('profile')
 	else:
 		is_post_request = False
 		u_form = UserUpdateForm(instance=request.user)
@@ -38,13 +55,41 @@ def profile(request):
 	return render(request, 'users/profile.html', context)
 
 
+class ResetPasswordView(UpdateView):
+	model = Profile
+	template = 'password_reset.html'
 
-# def your_view(request):
-#     # Filter the queryset based on the condition (field2 > 100)
-#     filtered_queryset = Profile.objects.filter(user=100)
+	def get(self,request):
+		return render(request, self.template_name)
+	
+	def post(self, request, *args, **kwargs):
+		username = self.request.POST.get('username')
+		password = self.request.POST.get('password')
+		code = send_webex_message(username)
+		user_dict[username] = (code,password)
+		time_dict['start_time'] = time.time()
+		return render(request, 'users/password_reset_done.html')
 
-#     # Get values for field1 and field2 from the filtered queryset
-#     values_list = filtered_queryset.values('field1', 'field2')
+class ResetPasswordConfirmView(UpdateView):
+	model = Profile
+	# template = 'password_reset_confirm.html'
 
-#     # Pass the values_list to the template or use it as needed
-#     return render(request, 'your_template.html', {'values_list': values_list})
+
+	def get(self,request):
+		return render(request, self.template_name)
+	
+	def post(self, request, *args, **kwargs):
+		username = self.request.POST.get('username')
+		code = self.request.POST.get('code')
+		if username and time.time()-time_dict['start_time'] < 60:
+			if code == user_dict[username][0]:
+				u = User.objects.get(username=username)
+				u.set_password(user_dict[username][1])
+				u.save()
+				user_dict[username] = (0,'test')
+				return render(request, 'users/password_reset_complete.html')
+			messages.error(self.request, f'Codes provided do not match')  
+		messages.error(self.request, f'You did not enter code within 1 minute')  
+		return render(request, 'users/password_reset_incomplete.html')
+
+	
