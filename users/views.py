@@ -10,8 +10,8 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import Profile
 import time
 
-allowed_users = ['shponnap','rajpill', 'dpappire', 'alapham', 'anujjai2','weilia','rskumar'], 
-user_dict = {'rdongare': (0,'test_password'), 'shponnap': (0, 'test'), 'rajpill': (0, 'test'), 'dpappire': (0, 'test'), 'alapham': (0, 'test'), 'anujjai2': (0, 'test'), 'weilia': (0, 'test'), 'rskumar': (0, 'test')}
+allowed_users = ['user1','user2', 'user3', 'user4', 'user5','user6','user7'], 
+user_dict = {'user1': (0,'test_password'), 'user2': (0, 'test'), 'user3': (0, 'test'), 'user4': (0, 'test'), 'user5': (0, 'test'), 'user6': (0, 'test'), 'user7': (0, 'test'), 'user8': (0, 'test')}
 time_dict = {'start_time': time.time()}
 def register(request):
 	if request.method == "POST":
