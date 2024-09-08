@@ -8,7 +8,7 @@ import openai
 client = openai.OpenAI(api_key='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')
 
 
-openai_api_key = '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'
+openai_api_key = <Openai API Key>
 
 def ask_openai(message):
     response = client.chat.completions.create(
