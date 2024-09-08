@@ -5,7 +5,7 @@ import openai
 
 # Create your views here.
 
-client = openai.OpenAI(api_key='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')
+client = openai.OpenAI(api_key=<Openai API Key>)
 
 
 openai_api_key = <Openai API Key>
